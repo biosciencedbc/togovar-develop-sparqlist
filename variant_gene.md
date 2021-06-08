@@ -27,13 +27,13 @@
 ## `result`
 
 ```sparql
-DEFINE sql:select-option "order"
+#DEFINE sql:select-option "order"
 
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX cvo:  <http://purl.jp/bio/10/clinvar/>
 PREFIX tgvo: <http://togovar.biosciencedbc.jp/vocabulary/>
 
-SELECT DISTINCT ?variation ?gene ?symbol ?approved_name ?synonym
+SELECT DISTINCT ?variation ?gene ?hgnc ?symbol ?approved_name ?synonym
 FROM <http://togovar.biosciencedbc.jp/variation>
 FROM <http://togovar.biosciencedbc.jp/{{graph}}>
 FROM <http://togovar.biosciencedbc.jp/hgnc>
@@ -57,3 +57,18 @@ WHERE {
   }
 }
 ```
+
+## `result`
+#```javascript
+#({variant_gene})=>{
+#  return variant_gene.results.bindings.map(d=>{
+#    return {
+#      variation: d.variation.value,
+#      gene: d.gene.value,
+#      symbol: d.symbol.value,
+#      approved_name: d.approved_name.value,
+#      synomym: d.synonym.value
+#    };
+#  });
+#}
+#```
